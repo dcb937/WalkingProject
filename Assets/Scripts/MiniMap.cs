@@ -10,6 +10,7 @@ public class MiniMap : MonoBehaviour
   private float width;
   private float height;
   private float scaledSize;
+
   void Start()
   {
     originalPosition = transform.localPosition;
@@ -30,7 +31,7 @@ public class MiniMap : MonoBehaviour
       {
         transform.localPosition = Vector3.zero;
         transform.localScale = new Vector3(scaledSize, scaledSize);
-        ;
+
         isScaled = true;
       }
       else
@@ -39,6 +40,12 @@ public class MiniMap : MonoBehaviour
         transform.localScale = new Vector3(1, 1);
         isScaled = false;
       }
+    }
+
+    if (isScaled == true && Input.GetMouseButton(0))
+    {
+      // Debug.Log(Input.mousePosition);
+
     }
   }
 }

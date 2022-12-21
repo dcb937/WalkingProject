@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
   Animator animator;
+  public bool isNav = false;
   public float forwardSpeed = 1.9f;
   public float backwardSpeed = 1.9f;
   public float leftSpeed = 1.9f;
@@ -35,10 +36,13 @@ public class PlayerMovement : MonoBehaviour
     // movement = new Vector3(0, 0, currentSpeed * Time.deltaTime);
     // transform.position += movement;
     // 通过设置2D blend tree的参数值来实现unity人物动画的混合
-    animator.SetFloat("Vertical Speed", currentVerticalSpeed);
+    if (isNav == false)
+      animator.SetFloat("Vertical Speed", currentVerticalSpeed);
+    // Debug.Log("currentVerticalSpeed: " + currentVerticalSpeed);
 
     currentHorizontalSpeed = Mathf.Lerp(currentHorizontalSpeed, targetHorizontalSpeed, 0.1f);
-    animator.SetFloat("Horizontal Speed", currentHorizontalSpeed);
+    if (isNav == false)
+      animator.SetFloat("Horizontal Speed", currentHorizontalSpeed);
   }
 
   public void PlayerMove(InputAction.CallbackContext callbackContext)
