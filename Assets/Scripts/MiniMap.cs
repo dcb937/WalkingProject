@@ -6,19 +6,14 @@ public class MiniMap : MonoBehaviour
 {
   // Start is called before the first frame update
   private bool isScaled = false;
-  private Vector3 originalPosition;
-  private float width;
-  private float height;
-  private float scaledSize;
-
+  private Rect originalViewportRect;
+  private float originalSize;
   void Start()
   {
-    originalPosition = transform.localPosition;
-    width = GetComponent<RectTransform>().rect.width;
-    height = GetComponent<RectTransform>().rect.height;
-    scaledSize = UnityEngine.Screen.width / width > UnityEngine.Screen.height / height ?
-        UnityEngine.Screen.height / height :
-        UnityEngine.Screen.width / width;
+    originalViewportRect = GetComponent<Camera>().rect;
+    originalSize = GetComponent<Camera>().orthographicSize;
+    Debug.Log(originalViewportRect);
+    Debug.Log(originalSize);
   }
 
   // Update is called once per frame
@@ -29,23 +24,22 @@ public class MiniMap : MonoBehaviour
       Debug.Log("M press down");
       if (isScaled == false)
       {
-        transform.localPosition = Vector3.zero;
-        transform.localScale = new Vector3(scaledSize, scaledSize);
-
+        GetComponent<Camera>().rect = new Rect(0f, 0f, 1f, 1f);
+        GetComponent<Camera>().orthographicSize = 18f;
         isScaled = true;
       }
       else
       {
-        transform.localPosition = originalPosition;
-        transform.localScale = new Vector3(1, 1);
+        GetComponent<Camera>().rect = originalViewportRect;
+        GetComponent<Camera>().orthographicSize = originalSize;
         isScaled = false;
       }
     }
 
-    if (isScaled == true && Input.GetMouseButton(0))
-    {
-      // Debug.Log(Input.mousePosition);
+    // if (isScaled == true && Input.GetMouseButton(0))
+    // {
+    //   // Debug.Log(Input.mousePosition);
 
-    }
+    // }
   }
 }

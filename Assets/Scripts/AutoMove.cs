@@ -14,6 +14,7 @@ public class AutoMove : MonoBehaviour
   public Camera mapCamera;
   public PlayerMovement scriptPM;
   public LineRenderer lr;//LineRenderer组件
+  public Camera camera_main;
 
   private void Start()
   {
@@ -28,6 +29,13 @@ public class AutoMove : MonoBehaviour
   private void Update()
   {
     UpdateLineRenderer();
+
+    // if (Input.GetKeyDown(KeyCode.C))
+    // {
+    //   camera_main.enabled = false;
+    //   mapCamera.enabled = true;
+    // }
+
     // Debug.Log("Vertical Speed" + navPlayer.GetFloat("Vertical Speed"));
     // Debug.Log("Horizontal Speed" + navPlayer.GetFloat("Horizontal Speed"));
 
@@ -49,7 +57,7 @@ public class AutoMove : MonoBehaviour
     //射线起始位置
     ray = mapCamera.ScreenPointToRay(Input.mousePosition);
 
-    if (Physics.Raycast(ray, out hit, 10000))
+    if (Physics.Raycast(ray, out hit, 1000, myLayer))
     {
       Debug.DrawLine(ray.origin, hit.transform.position, Color.red);
       if (Input.GetMouseButtonDown(0))
