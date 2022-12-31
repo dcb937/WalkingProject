@@ -26,12 +26,16 @@ public class MiniMap : MonoBehaviour
       {
         GetComponent<Camera>().rect = new Rect(0f, 0f, 1f, 1f);
         GetComponent<Camera>().orthographicSize = 18f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         isScaled = true;
       }
       else
       {
         GetComponent<Camera>().rect = originalViewportRect;
         GetComponent<Camera>().orthographicSize = originalSize;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         isScaled = false;
       }
     }
@@ -39,7 +43,6 @@ public class MiniMap : MonoBehaviour
     // if (isScaled == true && Input.GetMouseButton(0))
     // {
     //   // Debug.Log(Input.mousePosition);
-
     // }
   }
 }

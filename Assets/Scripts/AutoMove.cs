@@ -15,6 +15,7 @@ public class AutoMove : MonoBehaviour
   public PlayerMovement scriptPM;
   public LineRenderer lr;//LineRenderer组件
   public Camera camera_main;
+  public Animator animator;
 
   private void Start()
   {
@@ -30,12 +31,6 @@ public class AutoMove : MonoBehaviour
   {
     UpdateLineRenderer();
 
-    // if (Input.GetKeyDown(KeyCode.C))
-    // {
-    //   camera_main.enabled = false;
-    //   mapCamera.enabled = true;
-    // }
-
     // Debug.Log("Vertical Speed" + navPlayer.GetFloat("Vertical Speed"));
     // Debug.Log("Horizontal Speed" + navPlayer.GetFloat("Horizontal Speed"));
 
@@ -50,6 +45,7 @@ public class AutoMove : MonoBehaviour
     if (scriptPM.isNav == true && agent.remainingDistance <= agent.stoppingDistance)
     {
       // navPlayer.SetFloat("Vertical Speed", 0f);
+      animator.SetFloat("Vertical Speed", 0f);
       agent.isStopped = true;   // 必须要有，不然导航一直不结束
       scriptPM.isNav = false;
     }
@@ -63,13 +59,10 @@ public class AutoMove : MonoBehaviour
       if (Input.GetMouseButtonDown(0))
       {
         Debug.Log(hit.point);
-        // Vector3 vec = new Vector3(-1.13f, 0, -11.14f);
-        // agent.SetDestination(vec);
-        // Debug.Log(hit.transform.position);
-        // agent.SetDestination(hit.transform.position);
         agent.SetDestination(hit.point);
         scriptPM.isNav = true;
         agent.isStopped = false;    // 得有，不然在第二次点击鼠标时会卡住不动
+        animator.SetFloat("Vertical Speed", 0.8f);
       }
 
     }
